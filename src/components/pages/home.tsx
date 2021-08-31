@@ -14,7 +14,6 @@ const Home: FC = (): JSX.Element => {
   const items = useSelector((state: RootState) => state.APIItems);
   const dispatch = useDispatch();
 
-
   const options = () => {
     const optionsArray = [];
     for (let i = 0; i < search.totalPages; i++) {
@@ -40,7 +39,7 @@ const Home: FC = (): JSX.Element => {
 
   function changeState(event: ChangeEvent<HTMLSelectElement>): void {
     const input = event.target;
-    if (input.name === 'page'){
+    if (input.name === 'page') {
       dispatch(setPage(input.value));
     } else {
       dispatch(setPageLimit(input.value));
@@ -57,9 +56,11 @@ const Home: FC = (): JSX.Element => {
             <div></div>
             <div></div>
           </div>
-        ) : items.items.map((el: Item): JSX.Element => {
-            return <TableBody key={el.publishedAt} item={el} name={search.searchState.text}/>;
-          })}
+        ) : (
+          items.items.map((el: Item): JSX.Element => {
+            return <TableBody key={el.publishedAt} item={el} name={search.searchState.text} />;
+          })
+        )}
       </div>
       <div className="pagination">
         <label className="pagination__label" htmlFor="amount">

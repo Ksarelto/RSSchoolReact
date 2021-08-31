@@ -1,13 +1,19 @@
+import { Dispatch } from 'react';
 import { AxiosResponse } from 'axios';
 import axios from './axios';
 import { Articles, Item, State } from '../../public/types';
 import { API } from './constants';
-import { itemsData, loading } from "../reducers/APIItemsSlice";
-import { itemData, loadingItem, redirectToNotFoundPage, setAllowRedirect } from "../reducers/APIItemSlice";
-import { setTotalPages } from "../reducers/searchSlice";
+import { itemsData, loading } from '../reducers/APIItemsSlice';
+import {
+  itemData,
+  loadingItem,
+  redirectToNotFoundPage,
+  setAllowRedirect,
+} from '../reducers/APIItemSlice';
+import { setTotalPages } from '../reducers/searchSlice';
 
 export const APIAsyncFunction = (searchState: State) => {
-  return async (dispatch: any): Promise<void> => {
+  return async (dispatch: Dispatch): Promise<void> => {
     try {
       const response: AxiosResponse<Articles> = await axios.get('/everything', {
         params: {
@@ -30,10 +36,10 @@ export const APIAsyncFunction = (searchState: State) => {
       }
       console.log(err);
     }
-  }
-}
+  };
+};
 export const APIAsyncItemFunction = (name: string, published: string) => {
-  return async (dispatch): Promise<void> => {
+  return async (dispatch: Dispatch): Promise<void> => {
     try {
       const response: AxiosResponse<Articles> = await axios.get('/everything', {
         params: { q: name, apiKey: API },
@@ -47,13 +53,12 @@ export const APIAsyncItemFunction = (name: string, published: string) => {
       }
       dispatch(itemData(article));
       dispatch(loadingItem(true));
-    } catch (err){
+    } catch (err) {
       const { data } = err.response;
-      if (data.status === 'error'){
+      if (data.status === 'error') {
         alert(data.message);
       }
       console.log(err);
     }
   };
 };
-

@@ -22,3 +22,10 @@ export interface Search {
   pageLimit: number;
   page: number;
 }
+
+export interface State {
+  text: string;
+  radio: string;
+  pageLimit: number;
+  page: number;
+}
