@@ -1,6 +1,6 @@
-import React from 'react';
+import { FC } from 'react';
 
-export const TableHead = (): JSX.Element => {
+export const TableHead: FC = (): JSX.Element => {
   return (
     <div className="table__head">
       <span className="table__head-span table__head_author">Author</span>
