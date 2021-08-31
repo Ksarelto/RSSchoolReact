@@ -1,12 +1,11 @@
-import React, { useState, MouseEvent, ChangeEvent, FC } from 'react';
-import { Search } from '../../../public/types';
+import React, { ChangeEvent, FC } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addInputsStateToSearch, setInputState } from '../../reducers/searchSlice';
+import { RootState } from '../../store/configureStore';
 
-interface SearchFormProps {
-  getSearchData: React.Dispatch<React.SetStateAction<Search>>;
-}
-
-const SearchBar: FC<SearchFormProps> = ({ getSearchData }): JSX.Element => {
-  const [search, setSearch] = useState({ text: '', radio: '' });
+const SearchBar: FC = (): JSX.Element => {
+  const inputsData = useSelector((state: RootState) => state.search.inputsState);
+  const dispatch = useDispatch();
 
   const radioBtns = [
     { key: 1, value: 'relevancy' },
@@ -14,14 +13,14 @@ const SearchBar: FC<SearchFormProps> = ({ getSearchData }): JSX.Element => {
     { key: 3, value: 'publishedAt' },
   ];
 
-  const clickedRadio = (event: MouseEvent) => {
-    const targetValue = (event.target as HTMLInputElement).value;
-    setSearch((prev) => ({ ...prev, radio: targetValue }));
+  const changeSearchState = (event: ChangeEvent<HTMLInputElement>) => {
+    const input = event.target;
+    dispatch(setInputState({ ...inputsData, [input.type]: input.value }));
   };
 
   const sendSearchForm = (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    getSearchData((prev) => ({ ...prev, text: search.text, radio: search.radio, page: 1 }));
+    dispatch(addInputsStateToSearch(inputsData));
   };
   return (
     <div className="search">
@@ -32,8 +31,8 @@ const SearchBar: FC<SearchFormProps> = ({ getSearchData }): JSX.Element => {
             type="text"
             name="search"
             placeholder="Search..."
-            value={search.text}
-            onChange={(e) => setSearch({ ...search, text: e.target.value })}
+            value={inputsData.text}
+            onChange={changeSearchState}
           />
           <input className="search__btn" type="submit" name="submit" value="&#128269;" />
         </div>
@@ -51,7 +50,7 @@ const SearchBar: FC<SearchFormProps> = ({ getSearchData }): JSX.Element => {
                   name="sort"
                   id={el.value}
                   value={el.value}
-                  onClick={clickedRadio}
+                  onChange={changeSearchState}
                 />
               </React.Fragment>
             );
