@@ -4,6 +4,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { APIAsyncItemFunction } from '../../utils/api';
 import { loadingItem, redirectToNotFoundPage, setAllowRedirect } from '../../reducers/APIItemSlice';
 import { RootState } from '../../store/configureStore';
+import Spinner from '../shared/spinner';
 
 const ItemDiscription: FC = () => {
   const search = useSelector((state: RootState) => state.search);
@@ -13,9 +14,9 @@ const ItemDiscription: FC = () => {
   const { id } = useParams<{ id: string }>();
 
   useEffect(() => {
-    const params = id.split('&&');
-    const APIPublished = params[1];
     if (itemData.allowRedirect) {
+      const params = id.split('&&');
+      const APIPublished = params[1];
       dispatch(redirectToNotFoundPage(false));
       dispatch(loadingItem(false));
       dispatch(APIAsyncItemFunction(search.searchState, APIPublished));
@@ -31,27 +32,27 @@ const ItemDiscription: FC = () => {
     <div>
       {itemData.loading ? (
         <div className="details">
-          <p className="details__text">
+          <p role="paragraph" className="details__text">
             <span className="details__text-span">1. Author: </span>
             {itemData.item.author}
           </p>
-          <p className="details__text">
+          <p role="paragraph" className="details__text">
             <span className="details__text-span">2. Title: </span>
             {itemData.item.title}
           </p>
-          <p className="details__text">
+          <p role="paragraph" className="details__text">
             <span className="details__text-span">3. Description: </span>
             {itemData.item.description}
           </p>
-          <p className="details__text">
+          <p role="paragraph" className="details__text">
             <span className="details__text-span">4. Content: </span>
             {itemData.item.content}
           </p>
-          <p className="details__text">
+          <p role="paragraph" className="details__text">
             <span className="details__text-span">5. Article published at: </span>
             {itemData.item.publishedAt}
           </p>
-          <p className="details__text">
+          <p role="paragraph" className="details__text">
             <span className="details__text-span">6. Url to source: </span>
             {itemData.item.url}
           </p>
@@ -60,10 +61,7 @@ const ItemDiscription: FC = () => {
           </div>
         </div>
       ) : (
-        <div className="lds-ripple">
-          <div></div>
-          <div></div>
-        </div>
+        <Spinner />
       )}
     </div>
   );

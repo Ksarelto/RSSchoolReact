@@ -3,7 +3,7 @@ import { FC } from 'react';
 const About: FC = (): JSX.Element => {
   return (
     <div className="about">
-      <h1>NEWS API</h1>
+      <h1 data-testid="custom">NEWS API</h1>
       <p className="about__text">
         The main use of News API is to search through every article published by over 80,000 news
         sources and blogs in the last 3 years. Think of us as Google News that you can interact with

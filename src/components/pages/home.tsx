@@ -8,6 +8,7 @@ import TableBody from '../shared/tableBody';
 import { itemsData, loading } from '../../reducers/APIItemsSlice';
 import { APIAsyncFunction } from '../../utils/api';
 import { setPage, setPageLimit, setTotalPages } from '../../reducers/searchSlice';
+import Spinner from '../shared/spinner';
 
 const Home: FC = (): JSX.Element => {
   const search = useSelector((state: RootState) => state.search);
@@ -49,13 +50,10 @@ const Home: FC = (): JSX.Element => {
   return (
     <div className="main">
       <SearchBar />
-      <div className="table">
+      <div className="table" data-testid="table">
         <TableHead />
         {items.loading ? (
-          <div className="lds-ripple">
-            <div></div>
-            <div></div>
-          </div>
+          <Spinner />
         ) : (
           items.items.map((el: Item): JSX.Element => {
             return <TableBody key={el.publishedAt} item={el} name={search.searchState.text} />;
@@ -72,6 +70,7 @@ const Home: FC = (): JSX.Element => {
           value={search.searchState.pageLimit}
           name="pageLimit"
           onChange={changeState}
+          data-testid="pageLimit-selector"
         >
           <option value="10">10</option>
           <option value="20">20</option>
@@ -86,6 +85,7 @@ const Home: FC = (): JSX.Element => {
           value={search.searchState.page}
           name="page"
           onChange={changeState}
+          data-testid="page-selector"
         >
           {options()};
         </select>

@@ -1,6 +1,5 @@
 import { Dispatch } from 'react';
-import { AxiosResponse } from 'axios';
-import axios from './axios';
+import axios, { AxiosResponse } from 'axios';
 import { Articles, Item, State } from '../../public/types';
 import { API } from './constants';
 import { itemsData, loading } from '../reducers/APIItemsSlice';
@@ -13,7 +12,7 @@ import {
 import { setTotalPages } from '../reducers/searchSlice';
 
 const apiRequest = async (searchState: State): Promise<Articles> => {
-  const response: AxiosResponse<Articles> = await axios.get('/everything', {
+  const response: AxiosResponse<Articles> = await axios.get('https://newsapi.org/v2/everything', {
     params: {
       q: searchState.text,
       sortBy: searchState.radio,
@@ -34,11 +33,6 @@ export const APIAsyncFunction = (searchState: State) => {
       dispatch(setTotalPages(totalPagesOnPage));
       dispatch(loading(false));
     } catch (err) {
-      const { data } = err.response;
-      if (data.status === 'error') {
-        alert(data.message);
-        return;
-      }
       console.log(err);
     }
   };
@@ -56,12 +50,6 @@ export const APIAsyncItemFunction = (searchState: State, published: string) => {
       dispatch(itemData(article));
       dispatch(loadingItem(true));
     } catch (err) {
-      const { data } = err.response;
-      if (data.status === 'error') {
-        alert(data.message);
-        dispatch(setAllowRedirect(false));
-        dispatch(redirectToNotFoundPage(true));
-      }
       console.log(err);
     }
   };

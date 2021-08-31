@@ -34,7 +34,13 @@ const SearchBar: FC = (): JSX.Element => {
             value={inputsData.text}
             onChange={changeSearchState}
           />
-          <input className="search__btn" type="submit" name="submit" value="&#128269;" />
+          <input
+            className="search__btn"
+            type="submit"
+            name="submit"
+            value="&#128269;"
+            data-testid="search-btn"
+          />
         </div>
         <div className="search__sort-inputs-wrapper">
           <p className="search__sort-text">Sort By: </p>

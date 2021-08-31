@@ -2,7 +2,7 @@ import { FC } from 'react';
 
 const NotFoundPage: FC = (): JSX.Element => {
   return (
-    <div className="notFound">
+    <div className="notFound" data-testid="notFound">
       <p className="notFound__text">
         Sorry, but this page is not exist/ Try to return to
         <span className="notFound__span">Home</span> or
