@@ -1,20 +1,18 @@
-import { Switch, Route } from "react-router"
-import { useRouteMatch, Redirect } from "react-router-dom";
-import { ItemDiscription } from "./itemDiscription";
-import { FC } from "react";
+import { useRouteMatch, Redirect, Switch, Route } from 'react-router-dom';
+import { FC } from 'react';
+import { ItemDiscription } from './itemDiscription';
 
-const Details: FC =() => {
+const Details: FC = () => {
   const { path } = useRouteMatch();
 
   return (
     <Switch>
-          <Route path={`${path}/:id`}>
-            <ItemDiscription />
-          </Route>
-          <Route path={`${path}/*`} render={() => (<Redirect to="/notFound" />)} />
-        </Switch>
-  )
-}
+      <Route path={`${path}/:id`}>
+        <ItemDiscription />
+      </Route>
+      <Route path={`${path}/*`} render={() => <Redirect to="/notFound" />} />
+    </Switch>
+  );
+};
 
 export default Details;
-
