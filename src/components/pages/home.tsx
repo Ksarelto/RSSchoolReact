@@ -1,34 +1,40 @@
-import { useEffect, useState } from 'react';
-import { SearchBar } from '../components/searchBar';
-import { TableHead } from '../components/tableHead';
-import { Item, Articles } from '../../public/types';
-import { TableBody } from '../components/tableBody';
-const API = 'e60b5635d25644f9bd31ee59009be1ac';
-const initSearchState = { text: '', radio: 'revalency', pageLimit: 10, page: 1 };
+import { FC, useEffect, useState, ChangeEvent } from 'react';
+import axios from '../../utils/api';
+import { AxiosResponse } from 'axios';
+import  SearchBar  from '../shared/searchBar';
+import  TableHead  from '../shared/tableHead';
+import { Item, Articles } from '../../../public/types';
+import  TableBody  from '../shared/tableBody';
+import { API, InitSearchState } from '../../utils/constants';
 
-export const Home = (): JSX.Element => {
+const Home: FC = (): JSX.Element => {
   const [items, setItems] = useState<Item[]>([]);
-  const [searchState, setSearchState] = useState(initSearchState);
+  const [searchState, setSearchState] = useState(InitSearchState);
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(false);
 
   const fetchAPI = async () => {
     setLoading(true);
     try {
-      const response = fetch(
-        `https://newsapi.org/v2/everything?q=${searchState.text}&sortBy=${searchState.radio}&pageSize=${searchState.pageLimit}&page=${searchState.page}&apiKey=${API}`,
-      );
-      const result: Promise<Articles> = (await response).json();
-      const error = (await result).status;
-      if (error === 'error') {
-        alert((await result).message);
-        return;
-      }
-      const { articles } = await result;
-      const totalPagesOnPage = (await result).totalResults / searchState.pageLimit;
+      const response: AxiosResponse<Articles> = await axios.get('/everything', {
+        params: {
+          q: searchState.text,
+          sortBy: searchState.radio,
+          pageSize: searchState.pageLimit,
+          page: searchState.page,
+          apiKey: API,
+        },
+      });
+      const result: Articles = response.data;
+      const { articles } = result;
+      const totalPagesOnPage = result.totalResults / searchState.pageLimit;
       setItems(articles);
       setTotalPages(Math.ceil(totalPagesOnPage));
     } catch (err) {
+      const response = err.response.data;
+      if (response.status === 'error'){
+        alert(response.message)
+      }
       console.log(err);
     } finally {
       setLoading(false);
@@ -38,7 +44,7 @@ export const Home = (): JSX.Element => {
   const options = () => {
     const optionsArray = [];
     for (let i = 0; i < totalPages; i++) {
-      const option = <option value={i + 1}>{i + 1}</option>;
+      const option = <option key={i} value={i + 1}>{i + 1}</option>;
       optionsArray.push(option);
     }
     return optionsArray;
@@ -52,6 +58,11 @@ export const Home = (): JSX.Element => {
     }
     fetchAPI();
   }, [searchState]);
+
+  function changeState(event: ChangeEvent<HTMLSelectElement>): void {
+    const input = event.target;
+    setSearchState({ ...searchState, [input.name]: input.value });
+  }
 
   return (
     <div className="main">
@@ -72,9 +83,8 @@ export const Home = (): JSX.Element => {
           className="pagination__pages-amount"
           id="amount"
           value={searchState.pageLimit}
-          onChange={(e) =>
-            setSearchState({ ...searchState, pageLimit: Number(e.target.value) })
-          }
+          name="pageLimit"
+          onChange={changeState}
         >
           <option value="10">10</option>
           <option value="20">20</option>
@@ -87,7 +97,8 @@ export const Home = (): JSX.Element => {
           className="pagination__page-number"
           id="number"
           value={searchState.page}
-          onChange={(e) => setSearchState({ ...searchState, page: Number(e.target.value) })}
+          name="page"
+          onChange={changeState}
         >
           {options()};
         </select>
@@ -96,3 +107,5 @@ export const Home = (): JSX.Element => {
     </div>
   );
 };
+
+export default Home;
