@@ -1,10 +1,10 @@
 import { FC, useEffect, useState, ChangeEvent } from 'react';
-import axios from '../../utils/api';
 import { AxiosResponse } from 'axios';
-import  SearchBar  from '../shared/searchBar';
-import  TableHead  from '../shared/tableHead';
+import axios from '../../utils/api';
+import SearchBar from '../shared/searchBar';
+import TableHead from '../shared/tableHead';
 import { Item, Articles, Search } from '../../../public/types';
-import  TableBody  from '../shared/tableBody';
+import TableBody from '../shared/tableBody';
 import { API, InitSearchState } from '../../utils/constants';
 
 const Home: FC = (): JSX.Element => {
@@ -32,8 +32,8 @@ const Home: FC = (): JSX.Element => {
       setTotalPages(Math.ceil(totalPagesOnPage));
     } catch (err) {
       const response = err.response.data;
-      if (response.status === 'error'){
-        alert(response.message)
+      if (response.status === 'error') {
+        alert(response.message);
       }
       console.log(err);
     } finally {
@@ -44,7 +44,11 @@ const Home: FC = (): JSX.Element => {
   const options = () => {
     const optionsArray = [];
     for (let i = 0; i < totalPages; i++) {
-      const option = <option key={i} value={i + 1}>{i + 1}</option>;
+      const option = (
+        <option key={i} value={i + 1}>
+          {i + 1}
+        </option>
+      );
       optionsArray.push(option);
     }
     return optionsArray;
@@ -69,11 +73,16 @@ const Home: FC = (): JSX.Element => {
       <SearchBar getSearchData={setSearchState} />
       <div className="table">
         <TableHead />
-        {loading
-          ? <div className="lds-ripple"><div></div><div></div></div>
-          : items.map((el: Item): JSX.Element => {
-            return <TableBody item={el} name={searchState.text}/>;
-          })}
+        {loading ? (
+          <div className="lds-ripple">
+            <div></div>
+            <div></div>
+          </div>
+        ) : (
+          items.map((el: Item): JSX.Element => {
+            return <TableBody item={el} name={searchState.text} />;
+          })
+        )}
       </div>
       <div className="pagination">
         <label className="pagination__label" htmlFor="amount">

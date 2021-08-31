@@ -41,22 +41,44 @@ const ItemDiscription: FC = () => {
 
   return (
     <div>
-      {isLoaded ? 
-      <div className="details">
-        <p className="details__text"><span className="details__text-span">1. Author: </span>{itemData.author}</p>
-        <p className="details__text"><span className="details__text-span">2. Title: </span>{itemData.title}</p>
-        <p className="details__text"><span className="details__text-span">3. Description: </span>{itemData.description}</p>
-        <p className="details__text"><span className="details__text-span">4. Content: </span>{itemData.content}</p>
-        <p className="details__text"><span className="details__text-span">5. Article published at: </span>{itemData.publishedAt}</p>
-        <p className="details__text"><span className="details__text-span">6. Url to source: </span>{itemData.url}</p>
-        <div className="details__image-wrapper">
-          <img className="details__image" src={itemData.urlToImage} alt="image"/>
+      {isLoaded ? (
+        <div className="details">
+          <p className="details__text">
+            <span className="details__text-span">1. Author: </span>
+            {itemData.author}
+          </p>
+          <p className="details__text">
+            <span className="details__text-span">2. Title: </span>
+            {itemData.title}
+          </p>
+          <p className="details__text">
+            <span className="details__text-span">3. Description: </span>
+            {itemData.description}
+          </p>
+          <p className="details__text">
+            <span className="details__text-span">4. Content: </span>
+            {itemData.content}
+          </p>
+          <p className="details__text">
+            <span className="details__text-span">5. Article published at: </span>
+            {itemData.publishedAt}
+          </p>
+          <p className="details__text">
+            <span className="details__text-span">6. Url to source: </span>
+            {itemData.url}
+          </p>
+          <div className="details__image-wrapper">
+            <img className="details__image" src={itemData.urlToImage} alt="image" />
+          </div>
         </div>
-      </div> : 
-      <div className="lds-ripple"><div></div><div></div></div>}
+      ) : (
+        <div className="lds-ripple">
+          <div></div>
+          <div></div>
+        </div>
+      )}
     </div>
-  )
-}
-
+  );
+};
 
 export default ItemDiscription;

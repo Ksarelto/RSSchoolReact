@@ -10,7 +10,7 @@ interface TableBodyProps {
 const TableBody: FC<TableBodyProps> = ({ item, name }): JSX.Element => {
   return (
     <div className="table__body">
-      <NavLink to={`details/${name}&&${item.publishedAt}`} className="table__body-nav-link"/>
+      <NavLink to={`details/${name}&&${item.publishedAt}`} className="table__body-nav-link" />
       <span className="table__body-span table__body-author">{item.author}</span>
       <span className="table__body-span table__body-tittle">{item.title}</span>
       <span className="table__body-span table__body-description">{item.description}</span>
