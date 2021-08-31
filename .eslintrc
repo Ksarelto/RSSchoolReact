@@ -12,16 +12,17 @@
   ],
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
-    "project": "./tsconfig.json",
+    "project": "./RSSchoolReact/tsconfig.json",
+    "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
     }
   },
   "plugins": [
-    "@typescript-eslint", "prettier", "react", "index.tsx"
+    "@typescript-eslint", "prettier", "react"
   ],
   "ignorePatterns": [
-    "*.config.js", "node_modules/", "dist/"
+    "*.config.js", "node_modules/", "dist/", "index.tsx"
   ],
   "rules": {
     "no-plusplus": "off",
