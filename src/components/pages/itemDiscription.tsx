@@ -1,14 +1,14 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory } from "react-router";
-import axios from '../../utils/api';
-import { Articles, Item } from "../../../public/types";
-import { API } from "../../utils/constants";
-import { AxiosResponse } from "axios";
+import { APIAsyncItemFunction } from "../../utils/api";
+import { loadingItem, redirectToNotFoundPage, setAllowRedirect } from '../../reducers/APIItemSlice';
+import { RootState } from '../../store/configureStore';
 
 const ItemDiscription: FC = () => {
 
-  const [itemData, setItemData] = useState({} as Item);
-  const [isLoaded, setLoaded] = useState(false);
+  const itemData = useSelector((state: RootState) => state.APIItem);
+  const dispatch = useDispatch();
   let history = useHistory();
   const { id } = useParams<{id: string}>();
 
@@ -16,27 +16,21 @@ const ItemDiscription: FC = () => {
     const params = id.split('&&');
     const APIName = params[0];
     const APIPublished = params[1];
-    setLoaded(false);
-    try {
-      const response: AxiosResponse<Articles> = await axios.get('/everything', { params: { q: APIName,apiKey: API } });
-      const result: Articles = response.data;
-      const { articles } = result;
-      const APIItemData = articles.find((el) => (el.publishedAt === APIPublished ))
-      if(!APIItemData) {
-        history.push('/notFound');
-        return;
-      };
-      setItemData(APIItemData);
-      setLoaded(true);
-    } catch (err) {
-      console.log(err);
-    } 
+    dispatch(loadingItem(false))
+    dispatch(APIAsyncItemFunction(APIName, APIPublished))
   }
 
   useEffect(() => {
+    if(itemData.allowRedirect){
+      dispatch(redirectToNotFoundPage(false))
       fetchAPI();
-      window.scrollTo(0,0);
-  }, []);
+    }
+    if(itemData.redirect && !itemData.allowRedirect){
+      dispatch(setAllowRedirect(true));
+      history.push('/notFound');
+    }
+    window.scrollTo(0,0);
+  }, [itemData.redirect]);
 
   return (
     <div>
