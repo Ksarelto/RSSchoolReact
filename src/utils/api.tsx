@@ -50,6 +50,8 @@ export const APIAsyncItemFunction = (searchState: State, published: string) => {
       dispatch(itemData(article));
       dispatch(loadingItem(true));
     } catch (err) {
+      dispatch(setAllowRedirect(false));
+      dispatch(redirectToNotFoundPage(true));
       console.log(err);
     }
   };
