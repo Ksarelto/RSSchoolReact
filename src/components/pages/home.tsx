@@ -3,13 +3,13 @@ import axios from '../../utils/api';
 import { AxiosResponse } from 'axios';
 import  SearchBar  from '../shared/searchBar';
 import  TableHead  from '../shared/tableHead';
-import { Item, Articles } from '../../../public/types';
+import { Item, Articles, Search } from '../../../public/types';
 import  TableBody  from '../shared/tableBody';
 import { API, InitSearchState } from '../../utils/constants';
 
 const Home: FC = (): JSX.Element => {
   const [items, setItems] = useState<Item[]>([]);
-  const [searchState, setSearchState] = useState(InitSearchState);
+  const [searchState, setSearchState] = useState<Search>(InitSearchState);
   const [totalPages, setTotalPages] = useState(0);
   const [loading, setLoading] = useState(false);
 
