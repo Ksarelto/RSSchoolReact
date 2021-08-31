@@ -15,3 +15,10 @@ export interface Articles {
   articles: Item[];
   message?: string;
 }
+
+export interface Search {
+  text: string;
+  radio: string;
+  pageLimit: number;
+  page: number;
+}
