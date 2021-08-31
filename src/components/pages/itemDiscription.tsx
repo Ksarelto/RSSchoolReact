@@ -1,15 +1,16 @@
-import { useEffect, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useParams, useHistory } from "react-router";
-import { Redirect } from "react-router-dom";
-import { Articles, Item } from "../../public/types";
-const API = 'e60b5635d25644f9bd31ee59009be1ac';
+import axios from '../../utils/api';
+import { Articles, Item } from "../../../public/types";
+import { API } from "../../utils/constants";
+import { AxiosResponse } from "axios";
 
-export const ItemDiscription =() => {
+export const ItemDiscription: FC = () => {
 
   const [itemData, setItemData] = useState({} as Item);
   const [isLoaded, setLoaded] = useState(false);
   let history = useHistory();
-  const { id } = useParams();
+  const { id } = useParams<{id: string}>();
 
   const fetchAPI = async () => {
     const params = id.split('&&');
@@ -17,13 +18,9 @@ export const ItemDiscription =() => {
     const APIPublished = params[1];
     setLoaded(false);
     try {
-      const response = await fetch(
-        `https://newsapi.org/v2/everything?q=${APIName}&apiKey=${API}`,
-      );
-      const result: Promise<Articles> = response.json();
-      const error = (await result).status;
-      if (error === 'error') return;
-      const { articles } = await result;
+      const response: AxiosResponse<Articles> = await axios.get('/everything', { params: { q: APIName,apiKey: API } });
+      const result: Articles = response.data;
+      const { articles } = result;
       const APIItemData = articles.find((el) => (el.publishedAt === APIPublished ))
       if(!APIItemData) {
         history.push('/notFound');
@@ -35,6 +32,7 @@ export const ItemDiscription =() => {
       console.log(err);
     } 
   }
+
   useEffect(() => {
       fetchAPI();
       window.scrollTo(0,0);
