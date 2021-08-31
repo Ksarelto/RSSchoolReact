@@ -5,7 +5,7 @@ import { Articles, Item } from "../../../public/types";
 import { API } from "../../utils/constants";
 import { AxiosResponse } from "axios";
 
-export const ItemDiscription: FC = () => {
+const ItemDiscription: FC = () => {
 
   const [itemData, setItemData] = useState({} as Item);
   const [isLoaded, setLoaded] = useState(false);
@@ -56,3 +56,6 @@ export const ItemDiscription: FC = () => {
     </div>
   )
 }
+
+
+export default ItemDiscription;

@@ -1,6 +1,6 @@
 import { useRouteMatch, Redirect, Switch, Route } from 'react-router-dom';
 import { FC } from 'react';
-import { ItemDiscription } from './itemDiscription';
+import ItemDiscription from './itemDiscription';
 
 const Details: FC = () => {
   const { path } = useRouteMatch();

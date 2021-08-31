@@ -9,7 +9,7 @@ import '../public/style.scss';
 import '../public/media.scss';
 import Details  from './components/pages/details';
 
-export const App: FC = (): JSX.Element => {
+const App: FC = (): JSX.Element => {
   let location  = useLocation();
   return (
       <div className="wrapper">
@@ -46,3 +46,5 @@ export const App: FC = (): JSX.Element => {
       </div>
   )
 }
+
+export default App;
