@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC } from 'react';
 
 const Spinner: FC = (): JSX.Element => {
   return (
@@ -6,7 +6,7 @@ const Spinner: FC = (): JSX.Element => {
       <div></div>
       <div></div>
     </div>
-  )
-}
+  );
+};
 
 export default Spinner;
