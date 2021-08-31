@@ -1,15 +1,15 @@
-import  React from 'react';
+import  React, { FC } from 'react';
 import { Switch, Route, NavLink, BrowserRouter as Router, useLocation, Redirect } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from "react-transition-group";
-import { About } from './pages/about';
-import { NotFoundPage } from './pages/notFoundPage';
-import { Home } from './pages/home';
+import  About  from './components/pages/aboutPage';
+import  NotFoundPage  from './components/pages/notFoundPage';
+import  Home  from './components/pages/home';
 import '../public/normolize.css';
 import '../public/style.scss';
 import '../public/media.scss';
-import { Details } from './pages/details';
+import Details  from './components/pages/details';
 
-export const App = (): JSX.Element => {
+export const App: FC = (): JSX.Element => {
   let location  = useLocation();
   return (
       <div className="wrapper">
