@@ -1,4 +1,6 @@
-export const About = (): JSX.Element => {
+import { FC } from "react";
+
+const About: FC= (): JSX.Element => {
   return (
     <div className="about">
       <h1>NEWS API</h1> 
@@ -10,3 +12,5 @@ export const About = (): JSX.Element => {
     </div>
   );
 };
+
+export default About;
