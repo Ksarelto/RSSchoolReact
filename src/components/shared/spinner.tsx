@@ -1,4 +1,6 @@
-export const Spinner = (): JSX.Element => {
+import { FC } from "react";
+
+const Spinner: FC = (): JSX.Element => {
   return (
     <div className="lds-ripple">
       <div></div>
@@ -6,3 +8,5 @@ export const Spinner = (): JSX.Element => {
     </div>
   )
 }
+
+export default Spinner;

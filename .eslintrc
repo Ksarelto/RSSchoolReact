@@ -18,7 +18,7 @@
     }
   },
   "plugins": [
-    "@typescript-eslint", "prettier", "react"
+    "@typescript-eslint", "prettier", "react", "index.tsx"
   ],
   "ignorePatterns": [
     "*.config.js", "node_modules/", "dist/"
