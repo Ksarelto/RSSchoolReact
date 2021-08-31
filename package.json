@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "main": "index.tsx",
   "scripts": {
-    "build": "webpack",
-    "build-live": "webpack serve --open",
+    "build": "webpack --node-env production",
+    "build-live": "webpack serve --open --node-env development",
     "lint": "eslint src/.",
     "prettier": "prettier  -w src/."
   },

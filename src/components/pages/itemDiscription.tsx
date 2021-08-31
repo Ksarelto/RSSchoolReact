@@ -6,23 +6,19 @@ import { loadingItem, redirectToNotFoundPage, setAllowRedirect } from '../../red
 import { RootState } from '../../store/configureStore';
 
 const ItemDiscription: FC = () => {
+  const search = useSelector((state: RootState) => state.search);
   const itemData = useSelector((state: RootState) => state.APIItem);
   const dispatch = useDispatch();
   const history = useHistory();
   const { id } = useParams<{ id: string }>();
 
-  const fetchAPI = async () => {
-    const params = id.split('&&');
-    const APIName = params[0];
-    const APIPublished = params[1];
-    dispatch(loadingItem(false));
-    dispatch(APIAsyncItemFunction(APIName, APIPublished));
-  };
-
   useEffect(() => {
+    const params = id.split('&&');
+    const APIPublished = params[1];
     if (itemData.allowRedirect) {
       dispatch(redirectToNotFoundPage(false));
-      fetchAPI();
+      dispatch(loadingItem(false));
+      dispatch(APIAsyncItemFunction(search.searchState, APIPublished));
     }
     if (itemData.redirect && !itemData.allowRedirect) {
       dispatch(setAllowRedirect(true));

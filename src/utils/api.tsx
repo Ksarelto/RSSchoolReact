@@ -12,20 +12,25 @@ import {
 } from '../reducers/APIItemSlice';
 import { setTotalPages } from '../reducers/searchSlice';
 
+const apiRequest = async (searchState: State): Promise<Articles> => {
+  const response: AxiosResponse<Articles> = await axios.get('/everything', {
+    params: {
+      q: searchState.text,
+      sortBy: searchState.radio,
+      pageSize: searchState.pageLimit,
+      page: searchState.page,
+      apiKey: API,
+    },
+  });
+  return response.data;
+};
+
 export const APIAsyncFunction = (searchState: State) => {
   return async (dispatch: Dispatch): Promise<void> => {
     try {
-      const response: AxiosResponse<Articles> = await axios.get('/everything', {
-        params: {
-          q: searchState.text,
-          sortBy: searchState.radio,
-          pageSize: searchState.pageLimit,
-          page: searchState.page,
-          apiKey: API,
-        },
-      });
-      const totalPagesOnPage = 10;
-      dispatch(itemsData(response.data.articles));
+      const result = await apiRequest(searchState);
+      const totalPagesOnPage = result.totalResults / searchState.pageLimit;
+      dispatch(itemsData(result.articles));
       dispatch(setTotalPages(totalPagesOnPage));
       dispatch(loading(false));
     } catch (err) {
@@ -38,14 +43,11 @@ export const APIAsyncFunction = (searchState: State) => {
     }
   };
 };
-export const APIAsyncItemFunction = (name: string, published: string) => {
+export const APIAsyncItemFunction = (searchState: State, published: string) => {
   return async (dispatch: Dispatch): Promise<void> => {
     try {
-      const response: AxiosResponse<Articles> = await axios.get('/everything', {
-        params: { q: name, apiKey: API },
-      });
-      const { articles } = response.data;
-      const article = articles.find((el: Item) => el.publishedAt === published);
+      const result = await apiRequest(searchState);
+      const article = result.articles.find((el: Item) => el.publishedAt === published);
       if (!article) {
         dispatch(setAllowRedirect(false));
         dispatch(redirectToNotFoundPage(true));
@@ -57,6 +59,8 @@ export const APIAsyncItemFunction = (name: string, published: string) => {
       const { data } = err.response;
       if (data.status === 'error') {
         alert(data.message);
+        dispatch(setAllowRedirect(false));
+        dispatch(redirectToNotFoundPage(true));
       }
       console.log(err);
     }
