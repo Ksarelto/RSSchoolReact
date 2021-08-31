@@ -1,16 +1,15 @@
-import { FC, useEffect, useState } from "react";
-import { useParams, useHistory } from "react-router";
+import { FC, useEffect, useState } from 'react';
+import { useParams, useHistory } from 'react-router-dom';
+import { AxiosResponse } from 'axios';
 import axios from '../../utils/api';
-import { Articles, Item } from "../../../public/types";
-import { API } from "../../utils/constants";
-import { AxiosResponse } from "axios";
+import { Articles, Item } from '../../../public/types';
+import { API } from '../../utils/constants';
 
 const ItemDiscription: FC = () => {
-
   const [itemData, setItemData] = useState({} as Item);
   const [isLoaded, setLoaded] = useState(false);
-  let history = useHistory();
-  const { id } = useParams<{id: string}>();
+  const history = useHistory();
+  const { id } = useParams<{ id: string }>();
 
   const fetchAPI = async () => {
     const params = id.split('&&');
@@ -18,24 +17,26 @@ const ItemDiscription: FC = () => {
     const APIPublished = params[1];
     setLoaded(false);
     try {
-      const response: AxiosResponse<Articles> = await axios.get('/everything', { params: { q: APIName,apiKey: API } });
+      const response: AxiosResponse<Articles> = await axios.get('/everything', {
+        params: { q: APIName, from: APIPublished, to: APIPublished, apiKey: API },
+      });
       const result: Articles = response.data;
       const { articles } = result;
-      const APIItemData = articles.find((el) => (el.publishedAt === APIPublished ))
-      if(!APIItemData) {
+      const APIItemData = articles.find((el) => el.publishedAt === APIPublished);
+      if (!APIItemData) {
         history.push('/notFound');
         return;
-      };
+      }
       setItemData(APIItemData);
       setLoaded(true);
     } catch (err) {
       console.log(err);
-    } 
-  }
+    }
+  };
 
   useEffect(() => {
-      fetchAPI();
-      window.scrollTo(0,0);
+    fetchAPI();
+    window.scrollTo(0, 0);
   }, []);
 
   return (
