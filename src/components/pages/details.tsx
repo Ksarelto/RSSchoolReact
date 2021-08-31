@@ -1,8 +1,9 @@
 import { Switch, Route } from "react-router"
 import { useRouteMatch, Redirect } from "react-router-dom";
-import { NotFoundPage } from "./notFoundPage";
 import { ItemDiscription } from "./itemDiscription";
-export const Details =() => {
+import { FC } from "react";
+
+const Details: FC =() => {
   const { path } = useRouteMatch();
 
   return (
@@ -14,3 +15,6 @@ export const Details =() => {
         </Switch>
   )
 }
+
+export default Details;
+
