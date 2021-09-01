@@ -5,7 +5,7 @@ export interface Item {
   birthInput: string;
   countryInput: string;
   agreementInput: boolean;
-  gender: boolean;
+  genderInput: boolean;
 }
 
 export interface Errors {
