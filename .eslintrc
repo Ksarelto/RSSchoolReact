@@ -22,7 +22,7 @@
     "@typescript-eslint", "prettier", "react"
   ],
   "ignorePatterns": [
-    "*.config.js", "node_modules/", "dist/", "index.tsx"
+    "*.js", "node_modules/", "dist/"
   ],
   "rules": {
     "no-plusplus": "off",
