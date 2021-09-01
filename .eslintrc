@@ -18,7 +18,7 @@
     }
   },
   "plugins": ["@typescript-eslint", "prettier", "react"],
-  "ignorePatterns": ["*.config.js", "node_modules/", "dist/"],
+  "ignorePatterns": ["*.config.js", "index.tsx", "node_modules/", "dist/"],
   "rules": {
     "no-plusplus": "off",
     "no-console": "warn",
@@ -45,12 +45,16 @@
       }
     ],
     "prettier/prettier": "error",
-    "import/extensions": ["off", "ignorePackages", {
-      "ts": "never",
-      "tsx": "never",
-      "js": "never",
-      "jsx": "never",
-      "mjs": "never"
-    }]
+    "import/extensions": [
+      "off",
+      "ignorePackages",
+      {
+        "ts": "never",
+        "tsx": "never",
+        "js": "never",
+        "jsx": "never",
+        "mjs": "never"
+      }
+    ]
   }
 }
