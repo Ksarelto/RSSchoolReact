@@ -13,7 +13,6 @@ import searchReducer from '../reducers/searchSlice';
 import APIItemsReducer from '../reducers/APIItemsSlice';
 import APIItemReducer from '../reducers/APIItemSlice';
 import * as mockRequest from '../../public/request.json';
-import ItemDiscription from '../components/pages/itemDiscription';
 
 function render(
   ui: ReactElement,
@@ -28,7 +27,7 @@ function render(
 ) {
   const Wrapper: FC = ({ children }) => {
     return <Provider store={store}>{children}</Provider>;
-  }
+  };
   return rtlRender(ui, { wrapper: Wrapper, ...renderOptions });
 }
 
@@ -215,7 +214,7 @@ test('get itemDiscription Page rejected', async () => {
 });
 
 test('change search state', async () => {
-  window.scrollTo = jest.fn()
+  window.scrollTo = jest.fn();
   axios.get.mockImplementation(() => Promise.resolve({ data: mockRequest }));
   const history = createMemoryHistory();
   render(

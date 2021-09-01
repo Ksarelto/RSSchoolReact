@@ -1,12 +1,5 @@
-import React, { FC } from 'react';
-import {
-  Switch,
-  Route,
-  NavLink,
-  BrowserRouter as Router,
-  useLocation,
-  Redirect,
-} from 'react-router-dom';
+import { FC } from 'react';
+import { Switch, Route, NavLink, useLocation, Redirect } from 'react-router-dom';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import About from './components/pages/aboutPage';
 import NotFoundPage from './components/pages/notFoundPage';
@@ -17,7 +10,7 @@ import '../public/media.scss';
 import Details from './components/pages/details';
 
 const App: FC = (): JSX.Element => {
-  let location = useLocation();
+  const location = useLocation();
   return (
     <div className="wrapper">
       <nav className="nav">
