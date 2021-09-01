@@ -18,7 +18,7 @@
     }
   },
   "plugins": ["@typescript-eslint", "prettier", "react"],
-  "ignorePatterns": ["*.config.js", "node_modules/", "dist/"],
+  "ignorePatterns": ["*.config.js", "node_modules/", "dist/", "index.tsx"],
   "rules": {
     "no-plusplus": "off",
     "no-console": "warn",
