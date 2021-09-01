@@ -1,6 +1,6 @@
-import React from 'react';
+import { FC } from 'react';
 
-const SearchBar = (): JSX.Element => {
+const SearchBar: FC = (): JSX.Element => {
   return (
     <div className="search">
       <form className="search__form">

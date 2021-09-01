@@ -1,10 +1,14 @@
-import React from 'react';
+import { FC } from 'react';
 import { Item } from '../../public/types';
-import { Card } from './card';
+import Card from './card';
 
-const CardsTable = (props: { items: Array<Item> }): JSX.Element => {
+interface CardsTableProps {
+  items: Array<Item>;
+}
+
+const CardsTable: FC<CardsTableProps> = ({ items }): JSX.Element => {
   const cardsArray = () => {
-    const result = props.items.map((el) => {
+    const result = items.map((el) => {
       return <Card key={el.code} itemData={el} />;
     });
     return result;

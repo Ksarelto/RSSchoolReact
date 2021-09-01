@@ -1,4 +1,4 @@
-import React from 'react';
+import { FC } from 'react';
 import SearchBar from './components/searchBar';
 import CardsTable from './components/cardsTable';
 import { Item } from '../public/types';
@@ -7,7 +7,7 @@ import '../public/normolize.css';
 import '../public/style.scss';
 import '../public/media.scss';
 
-export const App = (): JSX.Element => {
+const App: FC = (): JSX.Element => {
   const itemsData = data as Array<Item>;
   return (
     <div className="main">
@@ -16,3 +16,5 @@ export const App = (): JSX.Element => {
     </div>
   );
 };
+
+export default App;
