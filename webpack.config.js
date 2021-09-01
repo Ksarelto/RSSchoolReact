@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 require("babel-polyfill");
 module.exports = {
-  entry: ['babel-polyfill','./src/index.tsx'],
+  entry: ['babel-polyfill','./index.tsx'],
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, './dist'),
@@ -47,7 +47,7 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     open: true,
-    port: 8080,
+    port: 8000,
     contentBase: path.join(__dirname, 'public'),
   },
 };
