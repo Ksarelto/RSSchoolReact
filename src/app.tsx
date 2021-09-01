@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { FC, useState } from 'react';
 import '../public/normolize.css';
 import '../public/style.scss';
 import '../public/media.scss';
 import SubmitForm from './components/form';
-import { Card } from './components/card';
+import Card from './components/card';
+import { Item } from '../public/types';
 
-export const App = (): JSX.Element => {
-  const [cards, setCards] = useState([]);
+const App: FC = (): JSX.Element => {
+  const [cards, setCards] = useState<Item[]>([]);
   return (
     <div className="main">
       <SubmitForm getCardData={setCards} />
@@ -18,3 +19,5 @@ export const App = (): JSX.Element => {
     </div>
   );
 };
+
+export default App;
