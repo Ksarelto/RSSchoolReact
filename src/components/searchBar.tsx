@@ -1,22 +1,29 @@
-import React, { useState, MouseEvent, ChangeEvent } from 'react';
+import React, { useState, MouseEvent, ChangeEvent, FC } from 'react';
+import { Search } from '../../public/types';
 
-interface Search {
-  text: string;
-  radio: string;
-  pageLimit: number;
-  page: number;
+interface SearchFormProps {
+  getSearchData: React.Dispatch<React.SetStateAction<Search>>;
 }
 
-export const SearchBar = (props: { getSearchData: (arg0: Search) => void }): JSX.Element => {
+const SearchBar: FC<SearchFormProps> = ({ getSearchData }): JSX.Element => {
   const [search, setSearch] = useState({ text: '', radio: '' });
+
+  const radioBtns = [
+    { key: 1, value: 'relevancy' },
+    { key: 2, value: 'popularity' },
+    { key: 3, value: 'publishedAt' },
+  ];
+
   const clickedRadio = (event: MouseEvent) => {
     const targetValue = (event.target as HTMLInputElement).value;
     setSearch((prev) => ({ ...prev, radio: targetValue }));
   };
+
   const sendSearchForm = (event: ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
-    props.getSearchData((prev) => ({...prev, text: search.text, radio: search.radio, page: 1 }));
+    getSearchData((prev) => ({ ...prev, text: search.text, radio: search.radio, page: 1 }));
   };
+
   return (
     <div className="search">
       <form className="search__form" onSubmit={sendSearchForm}>
@@ -33,41 +40,27 @@ export const SearchBar = (props: { getSearchData: (arg0: Search) => void }): JSX
         </div>
         <div className="search__sort-inputs-wrapper">
           <p className="search__sort-text">Sort By: </p>
-          <label className="search__label" htmlFor="revalence">
-            Revalency
-          </label>
-          <input
-            className="search__radio"
-            type="radio"
-            name="sort"
-            id="revalence"
-            value="relevancy"
-            onClick={clickedRadio}
-          />
-          <label className="search__label" htmlFor="popular">
-            Popularity
-          </label>
-          <input
-            className="search__radio"
-            type="radio"
-            name="sort"
-            id="popular"
-            value="popularity"
-            onClick={clickedRadio}
-          />
-          <label className="search__label" htmlFor="publish">
-            Published At
-          </label>
-          <input
-            className="search__radio"
-            type="radio"
-            name="sort"
-            id="publish"
-            value="publishedAt"
-            onClick={clickedRadio}
-          />
+          {radioBtns.map((el) => {
+            return (
+              <React.Fragment key={el.key}>
+                <label className="search__label" htmlFor={el.value}>
+                  {el.value}
+                </label>
+                <input
+                  className="search__radio"
+                  type="radio"
+                  name="sort"
+                  id={el.value}
+                  value={el.value}
+                  onClick={clickedRadio}
+                />
+              </React.Fragment>
+            );
+          })}
         </div>
       </form>
     </div>
   );
 };
+
+export default SearchBar;

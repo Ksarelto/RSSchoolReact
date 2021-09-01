@@ -1,6 +1,6 @@
-import React from 'react';
+import { FC } from 'react';
 
-export const TableHead = (): JSX.Element => {
+const TableHead: FC = (): JSX.Element => {
   return (
     <div className="table__head">
       <span className="table__head-span table__head_author">Author</span>
@@ -12,3 +12,5 @@ export const TableHead = (): JSX.Element => {
     </div>
   );
 };
+
+export default TableHead;
