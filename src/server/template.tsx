@@ -1,13 +1,17 @@
-
 interface TemplateParams {
-    cssPath: string;
-    jsPath: string;
-    content: string;
-    store?: any;
-  }
+  cssPath: string;
+  jsPath: string;
+  content: string;
+  store?: unknown;
+}
 
-  export function renderTemplate({cssPath, jsPath, content = '', store = {}}: TemplateParams) {
-    return `<!DOCTYPE html>
+export function renderTemplate({
+  cssPath,
+  jsPath,
+  content = '',
+  store = {},
+}: TemplateParams): string {
+  return `<!DOCTYPE html>
     <html lang="en">
         <head>
           <meta charset="utf-8">
