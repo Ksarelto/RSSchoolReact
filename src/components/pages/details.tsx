@@ -10,7 +10,7 @@ const Details: FC = () => {
       <Route path={`${path}/:id`}>
         <ItemDiscription />
       </Route>
-      <Route path={`${path}/*`} render={() => <Redirect to="/notFound" />} />
+      <Route path="*" render={() => <Redirect to="/notFound" />} />
     </Switch>
   );
 };

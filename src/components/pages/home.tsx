@@ -31,7 +31,7 @@ const Home: FC = (): JSX.Element => {
       setItems(articles);
       setTotalPages(Math.ceil(totalPagesOnPage));
     } catch (err) {
-      const response = err.response.data;
+      const response = err.response.data ? err.response.data : '';
       if (response.status === 'error') {
         alert(response.message);
       }
