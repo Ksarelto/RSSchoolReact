@@ -29,3 +29,30 @@ export interface State {
   pageLimit: number;
   page: number;
 }
+
+export interface StoreType {
+  search: {
+    searchState: {
+      text: string;
+      radio: string;
+      pageLimit: number;
+      page: number;
+    };
+    inputsState: {
+        text: string;
+        radio: string;
+    };
+    totalPages: number;
+    loading: boolean;
+};
+APIItems: {
+  items: never[];
+  loading: boolean;
+};
+APIItem: {
+  item: {} ,
+  loading: boolean,
+  redirect: boolean,
+  allowRedirect: boolean,
+};
+}
