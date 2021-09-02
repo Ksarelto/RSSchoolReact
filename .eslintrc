@@ -13,7 +13,6 @@
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "project": "./tsconfig.json",
-    "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
     }
@@ -22,10 +21,9 @@
     "@typescript-eslint", "prettier", "react"
   ],
   "ignorePatterns": [
-    "*.config.js", "node_modules/", "dist/", "index.tsx"
+    "*.config.js", "node_modules/", "dist/"
   ],
   "rules": {
-    "import/no-extraneous-dependencies": ["error", {"devDependencies": true}],
     "no-plusplus": "off",
     "no-console": "warn",
     "max-len": [
@@ -35,8 +33,9 @@
     ],
     "indent": [
       "warn",
-        2, 
-       {
+      [
+        2, 2
+      ], {
         "SwitchCase": 1
       }
     ],

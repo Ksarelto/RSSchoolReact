@@ -6,8 +6,8 @@ module.exports = {
   entry: ['babel-polyfill','./index.tsx'],
   output: {
     filename: 'bundle.js',
-    path: path.resolve(__dirname, './dist'),
-    publicPath: '/'
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
   },
   devtool: 'inline-source-map',
   module: {
@@ -48,7 +48,7 @@ module.exports = {
   devServer: {
     historyApiFallback: true,
     open: true,
-    port: 8080,
+    port: 8000,
     contentBase: path.join(__dirname, 'public'),
   },
 };

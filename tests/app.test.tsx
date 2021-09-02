@@ -6,13 +6,13 @@ import { render as rtlRender, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
-import NotFoundPage from '../components/pages/notFoundPage';
-import App from '../app';
-import Home from '../components/pages/home';
-import searchReducer from '../reducers/searchSlice';
-import APIItemsReducer from '../reducers/APIItemsSlice';
-import APIItemReducer from '../reducers/APIItemSlice';
-import * as mockRequest from '../../public/request.json';
+import NotFoundPage from '../src/components/pages/notFoundPage';
+import App from '../src/app';
+import Home from '../src/components/pages/home';
+import searchReducer from '../src/reducers/searchSlice';
+import APIItemsReducer from '../src/reducers/APIItemsSlice';
+import APIItemReducer from '../src/reducers/APIItemSlice';
+import * as mockRequest from '../public/request.json';
 
 function render(
   ui: ReactElement,
