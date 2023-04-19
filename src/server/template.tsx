@@ -1,28 +1,30 @@
+import React from "react";
+
 interface TemplateParams {
   cssPath: string;
   jsPath: string;
-  content: string;
+  children: JSX.Element;
   store?: unknown;
 }
 
-export function renderTemplate({
+export function Template({
   cssPath,
   jsPath,
-  content = '',
+  children,
   store = {},
-}: TemplateParams): string {
-  return `<!DOCTYPE html>
-    <html lang="en">
-        <head>
-          <meta charset="utf-8">
-          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-          <link rel="stylesheet" href="/client/${cssPath}"/>
+}: TemplateParams): JSX.Element {
+  return (
+    <html>
+      <head>
+          <meta charSet="utf-8"/>
+          <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+          <link rel="stylesheet" href={`/client/${cssPath}`}/>
           <title>RS - React SSR</title>
-        </head>
-        <body>
-          <div id="root">${content}</div>
-          <script>window.__STATE__ = ${JSON.stringify(store).replace(/</g, '\\u003c')}</script>
-          <script src="/client/${jsPath}"></script>
+      </head>
+      <body>
+          <div id="root">{children}</div>
+          <script src={`/client/${jsPath}`}></script>
         </body>
-    </html>`;
+    </html>
+  )
 }
